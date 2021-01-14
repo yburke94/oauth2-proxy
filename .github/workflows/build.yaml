@@ -16,6 +16,10 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          repository: oauth2-proxy/oauth2-proxy
+          path: source
+          ref: a0d37518e0192e00bb20213c3d507760dcefcfb2
 
       - name: Set Dynamic Env Vars
         run: |
@@ -28,7 +32,7 @@ jobs:
         run: |
           docker build \
             --build-arg VERSION=${VERSION} \
-            --tag ${IMAGE_TAG} .
+            --tag ${IMAGE_TAG} source/.
 
       - name: Save Image to Disk
         run: docker save ${IMAGE_TAG} | gzip > ${IMAGE_FILE_NAME}
